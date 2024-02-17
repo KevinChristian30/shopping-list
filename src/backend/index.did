@@ -1,0 +1,11 @@
+service: () -> {
+    addToShoppingList: (record {userId:principal; items:vec text; shoppingListId:principal}) -> (variant {Ok:record {id:principal; shoppingListName:text; userId:principal; items:vec text}; Err:variant {UserDoesNotExist:principal; ShoppingListDoesNotExist:principal}});
+    createShoppingList: (record {shoppingListName:text; userId:principal}) -> (variant {Ok:record {id:principal; shoppingListName:text; userId:principal; items:vec text}; Err:variant {UserDoesNotExist:principal; ShoppingListDoesNotExist:principal}});
+    createUser: (record {username:text}) -> (record {id:principal; username:text; shoppingLists:vec record {id:principal; shoppingListName:text; userId:principal; items:vec text}});
+    getShoppingLists: (principal) -> (variant {Ok:vec record {id:principal; shoppingListName:text; userId:principal; items:vec text}; Err:variant {UserDoesNotExist:principal; ShoppingListDoesNotExist:principal}}) query;
+    getUserById: (principal) -> (opt record {id:principal; username:text; shoppingLists:vec record {id:principal; shoppingListName:text; userId:principal; items:vec text}}) query;
+    getUserCount: () -> (nat64) query;
+    getUsers: () -> (vec record {id:principal; username:text; shoppingLists:vec record {id:principal; shoppingListName:text; userId:principal; items:vec text}}) query;
+    removeFromShoppingList: (record {itemToRemove:text; userId:principal; shoppingListId:principal}) -> (variant {Ok:record {id:principal; shoppingListName:text; userId:principal; items:vec text}; Err:variant {UserDoesNotExist:principal; ShoppingListDoesNotExist:principal}});
+    updateShoppingList: (record {shoppingListName:text; userId:principal; shoppingListId:principal}) -> (variant {Ok:record {id:principal; shoppingListName:text; userId:principal; items:vec text}; Err:variant {UserDoesNotExist:principal; ShoppingListDoesNotExist:principal}});
+}
